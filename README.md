@@ -1,1 +1,1 @@
-# GNIP ~ PING App
+# GNIP ~ PING
