@@ -17,13 +17,13 @@ public class Const {
     /* properties */
     public static final String PROP_HOSTS = "gnip.hosts";
 
-    public static final String PROP_SETTINGS_LOG_MAIN_FILENAME = "gnip.settings.log.main.filename";
-    public static final String PROP_SETTINGS_LOG_MAIN_SEVERITY = "gnip.settings.log.main.severity";
-    public static final String PROP_SETTINGS_LOG_REPORT_FILENAME = "gnip.settings.log.api.filename";
-    public static final String PROP_SETTINGS_LOG_REPORT_SEVERITY = "gnip.settings.log.api.severity";
+    public static final String PROP_LOG_FILENAME = "gnip.log.filename";
+    public static final String PROP_LOG_SEVERITY = "gnip.log.severity";
+    public static final String PROP_REPORT_LOG_FILENAME = "gnip.report.log.filename";
+    public static final String PROP_REPORT_LOG_SEVERITY = "gnip.report.log.severity";
     
-    public static final String PROP_SETTINGS_LOG_FORMAT = "gnip.settings.log.format";
-    public static final String PROP_SETTINGS_LOG_FORMAT_DATE = "gnip.settings.log.format.date";
+    public static final String PROP_SETTINGS_LOG_FORMAT = "gnip.log.format";
+    public static final String PROP_SETTINGS_LOG_FORMAT_DATE = "gnip.log.format.date";
     
 
     

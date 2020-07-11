@@ -20,15 +20,15 @@ public class LogConfig {
             LogFormatter formatter = new LogFormatter();
 
             // handlers
-            FileHandler mainHandler = new FileHandler(prop.get(Const.PROP_SETTINGS_LOG_MAIN_FILENAME), true);
-            FileHandler apiHandler = new FileHandler(prop.get(Const.PROP_SETTINGS_LOG_REPORT_FILENAME), true);
+            FileHandler mainHandler = new FileHandler(prop.get(Const.PROP_LOG_FILENAME), true);
+            FileHandler apiHandler = new FileHandler(prop.get(Const.PROP_REPORT_LOG_FILENAME), true);
             
             mainHandler.setFormatter(formatter);
             apiHandler.setFormatter(formatter);
 
             // severity
-            mainHandler.setLevel(Level.parse(prop.get(Const.PROP_SETTINGS_LOG_MAIN_SEVERITY)));
-            mainHandler.setLevel(Level.parse(prop.get(Const.PROP_SETTINGS_LOG_MAIN_SEVERITY)));
+            mainHandler.setLevel(Level.parse(prop.get(Const.PROP_LOG_SEVERITY)));
+            mainHandler.setLevel(Level.parse(prop.get(Const.PROP_LOG_SEVERITY)));
 
             mainLogger.addHandler(mainHandler);
             reportLogger.addHandler(apiHandler);
