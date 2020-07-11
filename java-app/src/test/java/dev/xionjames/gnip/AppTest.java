@@ -1,5 +1,9 @@
 package dev.xionjames.gnip;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import dev.xionjames.gnip.util.log.LogConfig;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -33,6 +37,9 @@ public class AppTest
      */
     public void testApp()
     {
+     
+        //App.main(new String[] {});
+       
         assertTrue( true );
     }
 }
