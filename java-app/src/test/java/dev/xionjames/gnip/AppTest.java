@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import dev.xionjames.gnip.util.http.HttpResponse;
 import dev.xionjames.gnip.util.http.HttpUtil;
 import dev.xionjames.gnip.util.log.LogConfig;
+import dev.xionjames.gnip.util.process.ProcessUtil;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -40,6 +41,7 @@ public class AppTest
     public void testApp()
     {
         testHttp();
+        testProcess();
 
 
         //App.main(new String[] {});
@@ -60,5 +62,11 @@ public class AppTest
         System.out.println("Response: " + response.getResponseCode());
         System.out.println("Response Text: " + response.getResponseText());
         
+    }
+
+    public void testProcess() {
+        String response = ProcessUtil.runProcess("ping -c 5 localhost");
+        assertNotNull(response);
+        System.out.println("Process Response: " + response);
     }
 }

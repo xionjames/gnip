@@ -3,7 +3,7 @@ package dev.xionjames.gnip.check;
 /**
  * Base class to check process
  */
-public abstract class HostChecker extends Thread {
+public abstract class HostChecker implements Runnable {
     public enum Status {
         NONE,
         RUNNING,
@@ -21,15 +21,6 @@ public abstract class HostChecker extends Thread {
         this.checkResult = null;
     }
 
-    /**
-     * Implements business logic to check the host.
-     * If check process is ok -> return true
-     * 
-     * @return
-     */
-    public abstract boolean check();
-
-
     @Override
     public void run() {
         if (this.host == null) {
@@ -39,11 +30,23 @@ public abstract class HostChecker extends Thread {
         }
 
         this.status = Status.RUNNING;
-        if (this.check()) {
+        if (this.check() && this.validateResult()) {
             this.status = Status.OK;
         } else {
             this.status = Status.ERROR;
         }
+    }
+
+    /**
+     * Implements business logic to check the host.
+     * If check process is ok -> return true
+     * 
+     * @return
+     */
+    protected abstract boolean check();
+
+    protected boolean validateResult() {
+        return this.checkResult != null;
     }
 
     /* SETTERS and GETTERS */
