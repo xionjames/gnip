@@ -28,22 +28,19 @@ public class TcpHostChecker extends HostChecker {
 
     @Override
     public boolean check() {
-        StringBuffer sbResult = new StringBuffer();
+        boolean ok = false;
 
         // check every port
         for (String port : ports) {
             this.url = formatUrl(this.getHost(), port);
             HttpResponse result = HttpUtil.isReachable(this.url, requestTimeout);
-            //result.get
-            // TODO evaluate time limit ans concat result
+            
+            this.setCheckResult(result == null ? null : result.toString());
+
+            if (result != null) ok = true;
         }
 
-        if (result != null) {
-            this.setCheckResult(result);
-            return true;
-        }
-
-        return false;
+        return ok;
     }
 
     private static String formatUrl(String url, String port){

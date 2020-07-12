@@ -21,12 +21,9 @@ public class TraceHostChecker extends HostChecker {
     @Override
     public boolean check() {
         String result = ProcessUtil.runProcess(this.command);
-        if (result != null) {
-            this.setCheckResult(result);
-            return true;
-        }
+        this.setCheckResult(result);
 
-        return false;
+        return result != null;
     }
 
 }

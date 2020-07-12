@@ -8,6 +8,7 @@ import java.net.URL;
 import java.net.UnknownHostException;
 
 public class HttpUtil {
+
     public static HttpResponse sendGetRequest(String url, int timeout) {
         HttpURLConnection connection = openConnection(url, "GET", timeout);
 
@@ -34,7 +35,7 @@ public class HttpUtil {
         return response;
     }
 
-    public static HttpResponse isReachable(String url, int timeout) throws IOException {
+    public static HttpResponse isReachable(String url, int timeout) {
         HttpURLConnection connection = openConnection(url, "HEAD", timeout);
         
         try {
@@ -43,6 +44,8 @@ public class HttpUtil {
 
             return new HttpResponse(url, responseCode, null, System.currentTimeMillis() - startTime);
         } catch (UnknownHostException noInternetConnection) {
+            return null;
+        } catch (IOException e) {
             return null;
         }
     }
