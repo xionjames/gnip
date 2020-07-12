@@ -3,6 +3,8 @@ package dev.xionjames.gnip;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import dev.xionjames.gnip.util.http.HttpResponse;
+import dev.xionjames.gnip.util.http.HttpUtil;
 import dev.xionjames.gnip.util.log.LogConfig;
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -37,9 +39,26 @@ public class AppTest
      */
     public void testApp()
     {
-     
+        testHttp();
+
+
         //App.main(new String[] {});
        
         assertTrue( true );
+    }
+
+    public void testHttp() {
+        HttpResponse response = HttpUtil.sendGetRequest("https://jasmin.com/", 5000);
+        assertNotNull(response);
+
+        System.out.println("Response: " + response.getResponseCode());
+
+
+        response = HttpUtil.sendPostRequest("https://postman-echo.com/post", "{\"a\": 123}", 5000);
+        assertNotNull(response);
+
+        System.out.println("Response: " + response.getResponseCode());
+        System.out.println("Response Text: " + response.getResponseText());
+        
     }
 }
