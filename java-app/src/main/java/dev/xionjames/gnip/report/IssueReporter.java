@@ -46,7 +46,7 @@ public class IssueReporter {
             @Override
             public void run() {
                 HttpResponse response = HttpUtil.sendPostRequest(url, jsonMessage, timeout);
-                LOGGER.info(String.format("Report (%s) response status code: %d", uuid.toString(), response.getResponseCode());
+                LOGGER.info(String.format("Report (%s) response status code: %d", uuid.toString(), response.getResponseCode()));
             }
         }.start();
 
