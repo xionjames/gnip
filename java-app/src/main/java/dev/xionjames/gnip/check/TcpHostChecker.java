@@ -1,10 +1,12 @@
 package dev.xionjames.gnip.check;
 
+import dev.xionjames.gnip.util.Const;
+
 public class TcpHostChecker extends HostChecker {
 
     public TcpHostChecker(String host) {
         super(host);
-        // TODO Auto-generated constructor stub
+        this.checkerKey = Const.CHECKER_KEY_TCP;
     }
 
     @Override

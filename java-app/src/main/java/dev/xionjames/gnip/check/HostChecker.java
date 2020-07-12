@@ -1,5 +1,7 @@
 package dev.xionjames.gnip.check;
 
+import dev.xionjames.gnip.util.CacheManager;
+
 /**
  * Base class to check process
  */
@@ -14,11 +16,13 @@ public abstract class HostChecker implements Runnable {
     private String host;
     private Status status;
     private String checkResult;
+    protected String checkerKey;
 
     public HostChecker(String host) {
         this.host = host;
         this.status = Status.NONE;
         this.checkResult = null;
+        this.checkerKey = "base";
     }
 
     @Override
@@ -65,6 +69,12 @@ public abstract class HostChecker implements Runnable {
 
     public void setCheckResult(String checkResult) {
         this.checkResult = checkResult;
+        CacheManager cache = CacheManager.getInstance();
+        cache.put(
+            String.format("%s/%s", this.host, this.checkerKey), 
+            this.checkResult
+        );
     }
+    
 
 }

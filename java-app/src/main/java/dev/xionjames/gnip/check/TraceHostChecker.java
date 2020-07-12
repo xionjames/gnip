@@ -2,11 +2,11 @@ package dev.xionjames.gnip.check;
 
 import dev.xionjames.gnip.util.Const;
 
-public class IcmpHostChecker extends HostChecker {
+public class TraceHostChecker extends HostChecker {
 
-    public IcmpHostChecker(String host) {
+    public TraceHostChecker(String host) {
         super(host);
-        this.checkerKey = Const.CHECKER_KEY_ICMP;
+        this.checkerKey = Const.CHECKER_KEY_TRACE;
     }
 
     @Override

@@ -14,8 +14,8 @@ public class LogFormatter extends Formatter {
     public LogFormatter() {
         PropertyReader prop = PropertyReader.getInstance();
         
-        this.logFormat = prop.get(Const.PROP_SETTINGS_LOG_FORMAT);
-        this.dateFormat = prop.get(Const.PROP_SETTINGS_LOG_FORMAT_DATE);
+        this.logFormat = prop.get(Const.PROP_LOG_FORMAT);
+        this.dateFormat = prop.get(Const.PROP_LOG_FORMAT_DATE);
 
         if (this.logFormat == null) this.logFormat = Const.DEFAULT_LOG_FORMAT;
         if (this.dateFormat == null) this.dateFormat = Const.DEFAULT_LOG_DATE_FORMAT;

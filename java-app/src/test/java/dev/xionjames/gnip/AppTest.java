@@ -3,6 +3,12 @@ package dev.xionjames.gnip;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.google.gson.Gson;
+
+import dev.xionjames.gnip.report.IssueReporter;
+import dev.xionjames.gnip.report.Message;
+import dev.xionjames.gnip.util.CacheManager;
+import dev.xionjames.gnip.util.Const;
 import dev.xionjames.gnip.util.http.HttpResponse;
 import dev.xionjames.gnip.util.http.HttpUtil;
 import dev.xionjames.gnip.util.log.LogConfig;
@@ -40,16 +46,13 @@ public class AppTest
      */
     public void testApp()
     {
-        testHttp();
-        testProcess();
-
-
-        //App.main(new String[] {});
-       
+        LogConfig.initialize();
         assertTrue( true );
     }
 
     public void testHttp() {
+        System.out.println("******* HTTP ********");
+
         HttpResponse response = HttpUtil.sendGetRequest("https://jasmin.com/", 5000);
         assertNotNull(response);
 
@@ -65,8 +68,34 @@ public class AppTest
     }
 
     public void testProcess() {
+        System.out.println("******* PROCESS ********");
+
         String response = ProcessUtil.runProcess("ping -c 5 localhost");
         assertNotNull(response);
         System.out.println("Process Response: " + response);
+    }
+
+    public void testJson() {
+        System.out.println("******* JSON ********");
+        
+        Message msg = new Message("google.com", "Result ICMP", "Result TCP", "Result Trace");
+        Gson gson = new Gson();
+        String json = gson.toJson(msg);
+
+        assertNotNull(json);
+
+        System.out.println(json);
+    }
+
+    public void testCacheAndReport() throws InterruptedException {
+        System.out.println("******* CACHE AND REPORT ********");
+
+        CacheManager cache = CacheManager.getInstance();
+        cache.put("google.com/" + Const.CHECKER_KEY_ICMP, "ICMP Result 1");
+        cache.put("google.com/" + Const.CHECKER_KEY_TCP, "TCP Result 1");
+        cache.put("google.com/" + Const.CHECKER_KEY_TRACE, "TRACE Result 1");
+
+        IssueReporter.report("google.com");
+        Thread.currentThread().sleep(2000);
     }
 }
