@@ -5,15 +5,16 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 
 public class HttpUtil {
     public static HttpResponse sendGetRequest(String url, int timeout) {
         HttpURLConnection connection = openConnection(url, "GET", timeout);
-        HttpResponse response = HttpResponse.valueOf(connection);
 
-        if (connection != null) {
-            connection.disconnect();
-        }
+        long startTime = System.currentTimeMillis();
+        HttpResponse response = HttpResponse.valueOf(connection, url, startTime);
+
+        disconnect(connection);
 
         return response;
     }
@@ -22,15 +23,28 @@ public class HttpUtil {
         HttpURLConnection connection = openConnection(url, "POST", timeout);
         HttpResponse response = null;
 
+        long startTime = System.currentTimeMillis();
+        
         if (writeData(connection, message)) {
-            response = HttpResponse.valueOf(connection);
+            response = HttpResponse.valueOf(connection, url, startTime);
         };
 
-        if (connection != null) {
-            connection.disconnect();
-        }
+        disconnect(connection);
 
         return response;
+    }
+
+    public static HttpResponse isReachable(String url, int timeout) throws IOException {
+        HttpURLConnection connection = openConnection(url, "HEAD", timeout);
+        
+        try {
+            long startTime = System.currentTimeMillis();
+            int responseCode = connection.getResponseCode();
+
+            return new HttpResponse(url, responseCode, null, System.currentTimeMillis() - startTime);
+        } catch (UnknownHostException noInternetConnection) {
+            return null;
+        }
     }
 
     private static HttpURLConnection openConnection(String url, String method, int timeout) {
@@ -68,5 +82,11 @@ public class HttpUtil {
         }
 
         return true;
+    }
+
+    private static void disconnect(HttpURLConnection connection) {
+        if (connection != null) {
+            connection.disconnect();
+        }
     }
 }

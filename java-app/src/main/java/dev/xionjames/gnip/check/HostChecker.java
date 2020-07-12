@@ -1,6 +1,9 @@
 package dev.xionjames.gnip.check;
 
+import dev.xionjames.gnip.report.IssueReporter;
 import dev.xionjames.gnip.util.CacheManager;
+import dev.xionjames.gnip.util.Const;
+import dev.xionjames.gnip.util.PropertyReader;
 
 /**
  * Base class to check process
@@ -17,12 +20,16 @@ public abstract class HostChecker implements Runnable {
     private Status status;
     private String checkResult;
     protected String checkerKey;
+    protected boolean reportOnFail = true;
+    protected PropertyReader prop;
 
     public HostChecker(String host) {
         this.host = host;
         this.status = Status.NONE;
         this.checkResult = null;
         this.checkerKey = "base";
+
+        this.prop = PropertyReader.getInstance();
     }
 
     @Override
@@ -33,13 +40,23 @@ public abstract class HostChecker implements Runnable {
             return;
         }
 
+        initialize();
+
         this.status = Status.RUNNING;
         if (this.check() && this.validateResult()) {
             this.status = Status.OK;
         } else {
             this.status = Status.ERROR;
+            if (this.reportOnFail) {
+                IssueReporter.report(this.host);
+            }
         }
     }
+
+    /**
+     * Implements initialization for every subclass
+     */
+    protected abstract void initialize();
 
     /**
      * Implements business logic to check the host.
@@ -49,6 +66,10 @@ public abstract class HostChecker implements Runnable {
      */
     protected abstract boolean check();
 
+    /**
+     * Implements result checking
+     * @return
+     */
     protected boolean validateResult() {
         return this.checkResult != null;
     }
@@ -67,13 +88,17 @@ public abstract class HostChecker implements Runnable {
         return checkResult;
     }
 
-    public void setCheckResult(String checkResult) {
+    protected void setCheckResult(String checkResult) {
         this.checkResult = checkResult;
         CacheManager cache = CacheManager.getInstance();
         cache.put(
             String.format("%s/%s", this.host, this.checkerKey), 
-            this.checkResult
+            this.checkResult != null ? this.checkResult : changeNullResult()
         );
+    }
+
+    protected String changeNullResult() {
+        return this.prop.get( String.format(Const.PROP_CHECK_ALL_NULLERROR, this.checkerKey) );
     }
     
 

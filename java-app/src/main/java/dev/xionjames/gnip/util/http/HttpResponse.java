@@ -7,15 +7,19 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 
 public class HttpResponse {
+    private String url;
     private int responseCode;
     private String responseText;
+    private long responseTime;
 
-    public HttpResponse(int code, String text) {
+    public HttpResponse(String url, int code, String text, long responseTime) {
+        this.url = url;
         this.responseCode = code;
         this.responseText = text;
+        this.responseTime = responseTime;
     }
 
-    public static HttpResponse valueOf(HttpURLConnection con) {
+    public static HttpResponse valueOf(HttpURLConnection con, String url, long startTime) {
         try {
             int status = con.getResponseCode();
 
@@ -35,7 +39,7 @@ public class HttpResponse {
             }
             in.close();
 
-            return new HttpResponse(status, content.toString());
+            return new HttpResponse(url, status, content.toString(), System.currentTimeMillis() - startTime);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -50,5 +54,19 @@ public class HttpResponse {
 
     public String getResponseText() {
         return responseText;
+    }
+
+    public long getResponseTime() {
+        return responseTime;
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer format = new StringBuffer();
+        format.append("URL: %s\n")
+              .append("HTTP status: %d\n")
+              .append("Response time: %d ms");
+
+        return String.format(format.toString(), this.url, this.responseCode, this.responseTime);
     }
 }

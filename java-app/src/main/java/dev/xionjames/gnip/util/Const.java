@@ -27,6 +27,16 @@ public class Const {
     public static final String PROP_REPORT_URL = "gnip.report.url";
     public static final String PROP_REPORT_TIMEOUT = "gnip.report.timeout";
     
+    public static final String PROP_CHECK_ICMP_COMMAND = "gnip.check.icmp.command";
+
+    public static final String PROP_CHECK_TCP_TIMEOUT = "gnip.check.tcp.timeout";
+    public static final String PROP_CHECK_TCP_TIMELIMIT = "gnip.check.tcp.timelimit";
+    public static final String PROP_CHECK_TCP_PORTS = "gnip.check.tcp.ports";
+
+    public static final String PROP_CHECK_TRACE_COMMAND = "gnip.check.trace.command";
+
+    public static final String PROP_CHECK_ALL_NULLERROR = "gnip.check.%s.nullerror";
+    public static final String PROP_CHECK_ALL_DELAY = "gnip.check.%s.delay";
 
     /* checker keys */
     public static final String CHECKER_KEY_ICMP = "icmp";

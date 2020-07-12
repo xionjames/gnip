@@ -1,8 +1,11 @@
 package dev.xionjames.gnip.check;
 
 import dev.xionjames.gnip.util.Const;
+import dev.xionjames.gnip.util.PropertyReader;
+import dev.xionjames.gnip.util.process.ProcessUtil;
 
 public class IcmpHostChecker extends HostChecker {
+    private String command;
 
     public IcmpHostChecker(String host) {
         super(host);
@@ -10,8 +13,18 @@ public class IcmpHostChecker extends HostChecker {
     }
 
     @Override
+    protected void initialize() {
+        this.command = this.prop.get(Const.PROP_CHECK_ICMP_COMMAND);
+    }
+
+    @Override
     public boolean check() {
-        // TODO Auto-generated method stub
+        String result = ProcessUtil.runProcess(this.command);
+        if (result != null) {
+            this.setCheckResult(result);
+            return true;
+        }
+
         return false;
     }
 
