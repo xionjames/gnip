@@ -1,14 +1,12 @@
 package dev.xionjames.gnip;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gson.Gson;
 
 import dev.xionjames.gnip.report.IssueReporter;
 import dev.xionjames.gnip.report.Message;
 import dev.xionjames.gnip.util.CacheManager;
 import dev.xionjames.gnip.util.Const;
+import dev.xionjames.gnip.util.Util;
 import dev.xionjames.gnip.util.http.HttpResponse;
 import dev.xionjames.gnip.util.http.HttpUtil;
 import dev.xionjames.gnip.util.log.LogConfig;
@@ -50,7 +48,7 @@ public class AppTest
         assertTrue( true );
     }
 
-    public void testHttp() {
+    public void notestHttp() {
         System.out.println("******* HTTP ********");
 
         HttpResponse response = HttpUtil.sendGetRequest("https://jasmin.com/", 5000);
@@ -67,7 +65,7 @@ public class AppTest
         
     }
 
-    public void testProcess() {
+    public void notestProcess() {
         System.out.println("******* PROCESS ********");
 
         String response = ProcessUtil.runProcess("ping -c 5 localhost");
@@ -75,7 +73,7 @@ public class AppTest
         System.out.println("Process Response: " + response);
     }
 
-    public void testJson() {
+    public void notestJson() {
         System.out.println("******* JSON ********");
         
         Message msg = new Message("google.com", "Result ICMP", "Result TCP", "Result Trace");
@@ -87,7 +85,7 @@ public class AppTest
         System.out.println(json);
     }
 
-    public void testCacheAndReport() throws InterruptedException {
+    public void notestCacheAndReport() throws InterruptedException {
         System.out.println("******* CACHE AND REPORT ********");
 
         CacheManager cache = CacheManager.getInstance();
@@ -98,4 +96,20 @@ public class AppTest
         IssueReporter.report("google.com");
         Thread.currentThread().sleep(2000);
     }
+
+    public void notestExtract() {
+        System.out.println("******* EXTRACT ********");
+
+        String source = "5 packets transmitted, 0 received, 100% packet loss, time 4112ms";
+        String extracted = Util.extract(source, "[0-9]+% packet loss");
+        
+        assertNotNull(extracted);
+        System.out.println(extracted);
+
+        source = "ping: jasmin.come: Name or service not known";
+        extracted = Util.extract(source, "Name or service not known");
+        
+        assertNotNull(extracted);
+        System.out.println(extracted);
+    }    
 }

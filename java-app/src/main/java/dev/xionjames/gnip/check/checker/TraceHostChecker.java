@@ -1,20 +1,20 @@
-package dev.xionjames.gnip.check;
+package dev.xionjames.gnip.check.checker;
 
 import dev.xionjames.gnip.util.Const;
-import dev.xionjames.gnip.util.PropertyReader;
 import dev.xionjames.gnip.util.process.ProcessUtil;
 
-public class IcmpHostChecker extends HostChecker {
+public class TraceHostChecker extends HostChecker {
     private String command;
 
-    public IcmpHostChecker(String host) {
+    public TraceHostChecker(String host) {
         super(host);
-        this.checkerKey = Const.CHECKER_KEY_ICMP;
+        this.checkerKey = Const.CHECKER_KEY_TRACE;
+        this.reportOnFail = false;
     }
 
     @Override
     protected void initialize() {
-        this.command = this.prop.get(Const.PROP_CHECK_ICMP_COMMAND);
+        this.command = this.prop.get(Const.PROP_CHECK_TRACE_COMMAND);
     }
 
     @Override

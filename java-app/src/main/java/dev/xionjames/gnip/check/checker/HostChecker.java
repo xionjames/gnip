@@ -1,4 +1,4 @@
-package dev.xionjames.gnip.check;
+package dev.xionjames.gnip.check.checker;
 
 import dev.xionjames.gnip.report.IssueReporter;
 import dev.xionjames.gnip.util.CacheManager;

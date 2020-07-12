@@ -1,10 +1,9 @@
-package dev.xionjames.gnip.check;
+package dev.xionjames.gnip.check.checker;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import dev.xionjames.gnip.util.Const;
-import dev.xionjames.gnip.util.PropertyReader;
 import dev.xionjames.gnip.util.http.HttpResponse;
 import dev.xionjames.gnip.util.http.HttpUtil;
 
@@ -37,7 +36,10 @@ public class TcpHostChecker extends HostChecker {
             
             this.setCheckResult(result == null ? null : result.toString());
 
-            if (result != null) ok = true;
+            if (result != null) {
+                // check time limit
+                ok = result.getResponseTime() <= this.timeLimit;
+            }
         }
 
         return ok;
@@ -51,7 +53,7 @@ public class TcpHostChecker extends HostChecker {
 
         return formats.containsKey(port) ? String.format(formats.get(port), url) : url;
     }
-
+    
     @Override
     protected String changeNullResult() {
         return String.format("URL: %s\n%s", this.url, super.changeNullResult()); 
