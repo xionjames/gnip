@@ -1,18 +1,14 @@
 package dev.xionjames.gnip;
 
-import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 import dev.xionjames.gnip.check.Controller;
 import dev.xionjames.gnip.util.Const;
 import dev.xionjames.gnip.util.PropertyReader;
 import dev.xionjames.gnip.util.Util;
+import dev.xionjames.gnip.util.log.LogConfig;
 
 /**
  * Hello world!
@@ -68,6 +64,8 @@ public class App {
     }
 
     public static void executeCheck() {
+        LogConfig.initialize();
+
         Controller controller = new Controller();
         controller.runHostChecking();
     }

@@ -31,7 +31,7 @@ public class Control extends Thread {
                 checker.start();
             }
             try {
-                Thread.sleep(delay);
+                sleep(delay);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
