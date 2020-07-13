@@ -45,6 +45,10 @@ public class Controller {
         }
     }
 
+    /**
+     * Launch every checker for one hosts
+     * @param host
+     */
     private void checkHost(String host) {
         CountDownLatch latch = new CountDownLatch(checkers.length);
         for (int i = 0; i < checkers.length; i++) {

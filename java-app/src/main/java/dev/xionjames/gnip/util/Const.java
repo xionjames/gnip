@@ -43,5 +43,7 @@ public class Const {
     public static final String CHECKER_KEY_TCP = "tcp";
     public static final String CHECKER_KEY_TRACE = "trace";
 
-    
+    /* OTHER */
+    public static final String HELP_FILE = "help.txt";
+    public static final String EXAMPLE_PROPERTIES_FILE = "example.properties";
 }

@@ -2,6 +2,9 @@ package dev.xionjames.gnip.check;
 
 import dev.xionjames.gnip.check.checker.HostChecker;
 
+/**
+ * Controls delay and execution for one specific checking type
+ */
 public class Control extends Thread {
     Class checkerClass;
     String host;

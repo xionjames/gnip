@@ -1,0 +1,9 @@
+Usage:
+    java -jar gnip-app-1.0-jar-with-dependencies.jar [options]
+
+Options:
+    -h          Help.
+    -d          Run with default properties.
+    -g          Generates an example properties file.
+    -p file     Run with one specific properties file.
+    
