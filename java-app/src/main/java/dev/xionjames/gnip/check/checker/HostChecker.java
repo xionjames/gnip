@@ -1,5 +1,7 @@
 package dev.xionjames.gnip.check.checker;
 
+import java.util.logging.Logger;
+
 import dev.xionjames.gnip.report.IssueReporter;
 import dev.xionjames.gnip.util.CacheManager;
 import dev.xionjames.gnip.util.Const;
@@ -8,7 +10,8 @@ import dev.xionjames.gnip.util.PropertyReader;
 /**
  * Base class to check process
  */
-public abstract class HostChecker implements Runnable {
+public abstract class HostChecker extends Thread {
+    
     public enum Status {
         NONE,
         RUNNING,
@@ -22,6 +25,7 @@ public abstract class HostChecker implements Runnable {
     protected String checkerKey;
     protected boolean reportOnFail = true;
     protected PropertyReader prop;
+    private final Logger LOGGER = Logger.getLogger(getClass().getName());
 
     public HostChecker(String host) {
         this.host = host;
@@ -40,13 +44,16 @@ public abstract class HostChecker implements Runnable {
             return;
         }
 
+        this.checkResult = null;
         initialize();
 
         this.status = Status.RUNNING;
         if (this.check() && this.validateResult()) {
             this.status = Status.OK;
+            LOGGER.info("Check " + this.checkerKey + " OK for " + this.host);
         } else {
             this.status = Status.ERROR;
+            LOGGER.info("Check " + this.checkerKey + " ERROR for " + this.host);
             if (this.reportOnFail) {
                 IssueReporter.report(this.host);
             }
@@ -99,6 +106,12 @@ public abstract class HostChecker implements Runnable {
 
     protected String changeNullResult() {
         return this.prop.get( String.format(Const.PROP_CHECK_ALL_NULLERROR, this.checkerKey) );
+    }
+
+    public int getDelay() {
+        return Integer.valueOf(
+            prop.get( String.format(Const.PROP_CHECK_ALL_DELAY, this.checkerKey) )
+        );
     }
     
 

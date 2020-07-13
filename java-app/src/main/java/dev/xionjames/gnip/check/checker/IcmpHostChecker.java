@@ -14,7 +14,7 @@ public class IcmpHostChecker extends HostChecker {
 
     @Override
     protected void initialize() {
-        this.command = this.prop.get(Const.PROP_CHECK_ICMP_COMMAND);
+        this.command = this.prop.get(Const.PROP_CHECK_ICMP_COMMAND).replace("{host}", this.getHost());
     }
 
     @Override

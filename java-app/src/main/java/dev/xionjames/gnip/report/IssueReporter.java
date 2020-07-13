@@ -41,14 +41,8 @@ public class IssueReporter {
 
         LOGGER.info(String.format("Sending report (%s): %s", uuid.toString(), jsonMessage));
 
-        new Thread() {
-
-            @Override
-            public void run() {
-                HttpResponse response = HttpUtil.sendPostRequest(url, jsonMessage, timeout);
-                LOGGER.info(String.format("Report (%s) response status code: %d", uuid.toString(), response.getResponseCode()));
-            }
-        }.start();
-
+        // Send to API in a different 
+        HttpResponse response = HttpUtil.sendPostRequest(url, jsonMessage, timeout);
+        LOGGER.info(String.format("Report (%s) response status code: %d", uuid.toString(), response.getResponseCode()));
     }
 }

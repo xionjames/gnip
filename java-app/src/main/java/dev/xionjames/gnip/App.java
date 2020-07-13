@@ -1,5 +1,6 @@
 package dev.xionjames.gnip;
 
+import dev.xionjames.gnip.check.Controller;
 import dev.xionjames.gnip.util.PropertyReader;
 
 /**
@@ -10,14 +11,58 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        if (args.length == 0) {
+            showHelp();
+            System.exit(1);
+        }
+ 
+        processArgs(args);
+    }
 
-        System.out.println("ARGS: " + args.length);
+    public static void showHelp() {
 
-        PropertyReader prop = args.length > 0 
-                            ? PropertyReader.getInstance(args[0]) 
-                            : PropertyReader.getInstance();
+    }
+
+    public static void processArgs(String[] args) {
+        PropertyReader prop;
+
+        switch(args[0]) {
+        case "-d":
+            prop = PropertyReader.getInstance();
+            executeCheck();
+            break;
+
+        case "-p":
+            if (args.length == 1) {
+                System.out.println("Properties file missing.");
+                System.out.println("Usage: -p path/to/file");
+                System.exit(1);
+            }
+
+            prop = PropertyReader.getInstance(args[1]);
+            executeCheck();
+            break;
+
+        case "-g":
+            generateExampleProperties();
+            break;
+
+        case "-h":
+            showHelp();
+            break;
+
+        default:
+            System.out.println("Invalid option.");
+            showHelp();
+        }
+    }
+
+    public static void executeCheck() {
+        Controller controller = new Controller();
+        controller.runHostChecking();
+    }
+
+    public static void generateExampleProperties() {
         
-        System.out.println( "Leyendo: " + prop.get("gnip.hosts") );
     }
 }

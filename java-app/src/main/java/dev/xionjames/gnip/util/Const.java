@@ -14,8 +14,6 @@ public class Const {
     public static final String DEFAULT_LOG_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String DEFAULT_CHECK_RESULT = "No results yet";
 
-    public static final String PROP_HOSTS = "gnip.hosts";
-
     public static final String PROP_LOG_FILENAME = "gnip.log.filename";
     public static final String PROP_LOG_SEVERITY = "gnip.log.severity";
     public static final String PROP_REPORT_LOG_FILENAME = "gnip.report.log.filename";
@@ -27,6 +25,8 @@ public class Const {
     public static final String PROP_REPORT_URL = "gnip.report.url";
     public static final String PROP_REPORT_TIMEOUT = "gnip.report.timeout";
     
+    public static final String PROP_CHECK_HOSTS = "gnip.check.hosts";
+
     public static final String PROP_CHECK_ICMP_COMMAND = "gnip.check.icmp.command";
 
     public static final String PROP_CHECK_TCP_TIMEOUT = "gnip.check.tcp.timeout";

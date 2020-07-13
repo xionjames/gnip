@@ -14,7 +14,7 @@ public class TraceHostChecker extends HostChecker {
 
     @Override
     protected void initialize() {
-        this.command = this.prop.get(Const.PROP_CHECK_TRACE_COMMAND);
+        this.command = this.prop.get(Const.PROP_CHECK_TRACE_COMMAND).replace("{host}", this.getHost());
     }
 
     @Override

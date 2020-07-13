@@ -45,6 +45,7 @@ public class AppTest
     public void testApp()
     {
         LogConfig.initialize();
+        App.main(new String[] { "-d" });
         assertTrue( true );
     }
 

@@ -22,7 +22,7 @@ public class TcpHostChecker extends HostChecker {
     protected void initialize() {
         this.requestTimeout = Integer.valueOf(this.prop.get(Const.PROP_CHECK_TCP_TIMEOUT));
         this.timeLimit = Integer.valueOf(this.prop.get(Const.PROP_CHECK_TCP_TIMELIMIT));
-        this.ports = this.prop.get(Const.PROP_CHECK_TCP_PORTS).split(" ");
+        this.ports = this.prop.get(Const.PROP_CHECK_TCP_PORTS).split("\\s");
     }
 
     @Override
