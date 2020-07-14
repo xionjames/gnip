@@ -4,6 +4,7 @@ Usage:
 Options:
     -h          Help.
     -d          Run with default properties.
+                Default commands for Linux.
     -g          Generates an example properties file.
     -p file     Run with one specific properties file.
     

@@ -1,5 +1,6 @@
 package dev.xionjames.gnip.util.log;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -34,6 +35,7 @@ public class LogConfig {
             throws SecurityException, IOException {
         
         // Create file handler
+        ensureDirectory(filename);
         FileHandler handler = new FileHandler(filename, true);
 
         // formatter
@@ -45,6 +47,17 @@ public class LogConfig {
         // handler
         logger.addHandler(handler);
         logger.setUseParentHandlers(false);
+    }
+
+    private static void ensureDirectory(String fileName) {
+        String parentName = new File(fileName).getParent();
+        if (parentName != null) {
+            File parentDir = new File(parentName);
+            // create the log dir if it does not exist
+            if (!parentDir.exists()) {
+                parentDir.mkdirs();
+            }
+        }
     }
 
 }
