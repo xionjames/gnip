@@ -61,9 +61,7 @@ public class HttpUtil {
             connection.setReadTimeout(timeout);
 
         } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
         }
 
         return connection;

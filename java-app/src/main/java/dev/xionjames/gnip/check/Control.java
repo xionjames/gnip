@@ -6,8 +6,8 @@ import dev.xionjames.gnip.check.checker.HostChecker;
  * Controls delay and execution for one specific checking type
  */
 public class Control extends Thread {
-    Class checkerClass;
-    String host;
+    private Class checkerClass;
+    private String host;
 
     public Control(Class checkerClass, String host) {
         this.checkerClass = checkerClass;
@@ -23,7 +23,6 @@ public class Control extends Thread {
             try {
                 checker = (HostChecker) checkerClass.getConstructor(String.class).newInstance(host);
             } catch (Exception e) {
-                e.printStackTrace();
                 return;
             }
 
@@ -35,7 +34,6 @@ public class Control extends Thread {
             try {
                 sleep(delay);
             } catch (InterruptedException e) {
-                e.printStackTrace();
             }
         }
     }

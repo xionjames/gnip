@@ -18,9 +18,7 @@ public class ProcessUtil {
             
             return exitCode == 0 ? response.toString() : null;
         } catch (InterruptedException ie) {
-            ie.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
         }
 
         return null;

@@ -32,7 +32,6 @@ public class Util {
             }
             return textBuilder.toString();
         } catch (IOException e) {
-            e.printStackTrace();
         }
         return null;
     }

@@ -41,7 +41,6 @@ public class HttpResponse {
 
             return new HttpResponse(url, status, content.toString(), System.currentTimeMillis() - startTime);
         } catch (IOException e) {
-            e.printStackTrace();
             return null;
         }
     }
