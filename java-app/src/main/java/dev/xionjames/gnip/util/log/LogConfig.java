@@ -19,28 +19,32 @@ public class LogConfig {
             // formatter
             LogFormatter formatter = new LogFormatter();
 
-            // handlers
-            FileHandler mainHandler = new FileHandler(prop.get(Const.PROP_LOG_FILENAME), true);
-            FileHandler reportHandler = new FileHandler(prop.get(Const.PROP_REPORT_LOG_FILENAME), true);
-            
-            mainHandler.setFormatter(formatter);
-            reportHandler.setFormatter(formatter);
-
-            // severity
-            mainHandler.setLevel(Level.parse(prop.get(Const.PROP_LOG_SEVERITY)));
-            reportHandler.setLevel(Level.parse(prop.get(Const.PROP_REPORT_LOG_SEVERITY)));
-
-            mainLogger.addHandler(mainHandler);
-            reportLogger.addHandler(reportHandler);
-
-            mainLogger.setUseParentHandlers(false);
-            reportLogger.setUseParentHandlers(false);
+            // initialize loggers
+            initLogger(mainLogger, Level.parse(prop.get(Const.PROP_LOG_SEVERITY)), prop.get(Const.PROP_LOG_FILENAME), formatter);
+            initLogger(reportLogger, Level.parse(prop.get(Const.PROP_REPORT_LOG_SEVERITY)), prop.get(Const.PROP_REPORT_LOG_FILENAME), formatter);
         } catch(IOException ioe) {
             Logger.getLogger(LogConfig.class.getName()).log(Level.SEVERE, ioe.getMessage(), ioe);
             return false;
         }
         
         return true;
+    }
+
+    private static void initLogger(Logger logger, Level level, String filename, LogFormatter formatter)
+            throws SecurityException, IOException {
+        
+        // Create file handler
+        FileHandler handler = new FileHandler(filename, true);
+
+        // formatter
+        handler.setFormatter(formatter);
+
+        // level
+        handler.setLevel(level);
+
+        // handler
+        logger.addHandler(handler);
+        logger.setUseParentHandlers(false);
     }
 
 }

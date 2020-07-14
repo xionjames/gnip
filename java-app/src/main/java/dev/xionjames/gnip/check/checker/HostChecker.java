@@ -57,7 +57,7 @@ public abstract class HostChecker extends Thread {
         } else {
             this.status = Status.ERROR;
 
-            LOGGER.info(String.format("Thread %d: %s checking finished ERROR for %s", this.getId(), this.checkerKey, this.host));
+            LOGGER.warning(String.format("Thread %d: %s checking finished ERROR for %s", this.getId(), this.checkerKey, this.host));
 
             if (this.reportOnFail) {
                 IssueReporter.report(this.host);
