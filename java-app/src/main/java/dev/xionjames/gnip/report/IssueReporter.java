@@ -43,6 +43,10 @@ public class IssueReporter {
 
         // Send to API in a different 
         HttpResponse response = HttpUtil.sendPostRequest(url, jsonMessage, timeout);
-        LOGGER.info(String.format("Report (%s) response status code: %d", uuid.toString(), response.getResponseCode()));
+        if (response != null) {
+            LOGGER.info(String.format("Report (%s) response status code: %d", uuid.toString(), response.getResponseCode()));
+        } else {
+            LOGGER.info(String.format("Report (%s) failed.", uuid.toString()));
+        }
     }
 }

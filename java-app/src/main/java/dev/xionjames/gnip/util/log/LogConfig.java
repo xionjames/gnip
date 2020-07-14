@@ -10,7 +10,6 @@ import dev.xionjames.gnip.util.PropertyReader;
 
 public class LogConfig {
     private static final Logger mainLogger = Logger.getLogger("dev.xionjames.gnip.check");
-    private static final Logger mainLogger2 = Logger.getLogger("dev.xionjames.gnip.check.checker");
     private static final Logger reportLogger = Logger.getLogger("dev.xionjames.gnip.report");
 
     public static boolean initialize() {
@@ -32,8 +31,10 @@ public class LogConfig {
             reportHandler.setLevel(Level.parse(prop.get(Const.PROP_REPORT_LOG_SEVERITY)));
 
             mainLogger.addHandler(mainHandler);
-            mainLogger2.addHandler(mainHandler);
             reportLogger.addHandler(reportHandler);
+
+            mainLogger.setUseParentHandlers(false);
+            reportLogger.setUseParentHandlers(false);
         } catch(IOException ioe) {
             Logger.getLogger(LogConfig.class.getName()).log(Level.SEVERE, ioe.getMessage(), ioe);
             return false;

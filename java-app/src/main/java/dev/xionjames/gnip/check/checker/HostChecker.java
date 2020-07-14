@@ -38,6 +38,8 @@ public abstract class HostChecker extends Thread {
 
     @Override
     public void run() {
+        LOGGER.info(String.format("Thread %d: %s checking started for %s", this.getId(), this.checkerKey, this.host));
+        
         if (this.host == null) {
             this.status = Status.ERROR;
             this.checkResult = "Host cannot be null";
@@ -50,10 +52,13 @@ public abstract class HostChecker extends Thread {
         this.status = Status.RUNNING;
         if (this.check() && this.validateResult()) {
             this.status = Status.OK;
-            LOGGER.info("Check " + this.checkerKey + " OK for " + this.host);
+            
+            LOGGER.info(String.format("Thread %d: %s checking finished OK for %s", this.getId(), this.checkerKey, this.host));
         } else {
             this.status = Status.ERROR;
-            LOGGER.info("Check " + this.checkerKey + " ERROR for " + this.host);
+
+            LOGGER.info(String.format("Thread %d: %s checking finished ERROR for %s", this.getId(), this.checkerKey, this.host));
+
             if (this.reportOnFail) {
                 IssueReporter.report(this.host);
             }

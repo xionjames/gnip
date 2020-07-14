@@ -53,8 +53,6 @@ public class Controller {
         CountDownLatch latch = new CountDownLatch(checkers.length);
         for (int i = 0; i < checkers.length; i++) {
             try {
-                LOGGER.info("Using " + checkers[i].getSimpleName() + " for " + host);
-
                 // Start thread to controll it
                 new Control(checkers[i], host).start();
             } catch (Exception e) {

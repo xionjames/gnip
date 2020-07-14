@@ -80,7 +80,6 @@ public class HttpUtil {
             out.flush();
             out.close();
         } catch (IOException e) {
-            e.printStackTrace();
             return false;
         }
 

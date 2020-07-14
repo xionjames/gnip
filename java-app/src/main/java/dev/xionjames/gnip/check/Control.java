@@ -16,6 +16,7 @@ public class Control extends Thread {
 
     @Override
     public void run() {
+        HostChecker previous = null;
         
         while (true) {
             HostChecker checker = null;
@@ -27,8 +28,9 @@ public class Control extends Thread {
             }
 
             int delay = checker.getDelay();
-            if (!checker.isAlive()) {
+            if (previous == null || !previous.isAlive()) {
                 checker.start();
+                previous = checker;
             }
             try {
                 sleep(delay);
