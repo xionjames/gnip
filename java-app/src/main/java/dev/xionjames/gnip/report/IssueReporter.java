@@ -37,16 +37,16 @@ public class IssueReporter {
         final int timeout = Integer.valueOf(prop.get(Const.PROP_REPORT_TIMEOUT));
         final String url = prop.get(Const.PROP_REPORT_URL);
 
-        final UUID uuid = UUID.randomUUID();
+        final String uuid = UUID.randomUUID().toString();
 
-        LOGGER.info(String.format("Sending report (%s): %s", uuid.toString(), jsonMessage));
+        LOGGER.warning(String.format("Sending report (%s): %s", uuid, jsonMessage));
 
         // Send to API in a different 
         HttpResponse response = HttpUtil.sendPostRequest(url, jsonMessage, timeout);
         if (response != null) {
-            LOGGER.info(String.format("Report (%s) response status code: %d", uuid.toString(), response.getResponseCode()));
+            LOGGER.warning(String.format("Report (%s) response status code: %d", uuid, response.getResponseCode()));
         } else {
-            LOGGER.info(String.format("Report (%s) failed.", uuid.toString()));
+            LOGGER.warning(String.format("Report (%s) failed.", uuid));
         }
     }
 }

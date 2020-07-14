@@ -19,7 +19,12 @@ public class IcmpHostChecker extends HostChecker {
 
     @Override
     public boolean check() {
+        LOGGER.fine(String.format("Thread %d> run command: %s", this.getId(), this.command));
+        
         String result = ProcessUtil.runProcess(this.command);
+       
+        LOGGER.finer(String.format("Thread %d> command result: %s", this.getId(), result));
+
         this.setCheckResult(result);
 
         return result != null;

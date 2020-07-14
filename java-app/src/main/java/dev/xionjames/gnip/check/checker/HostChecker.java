@@ -25,7 +25,7 @@ public abstract class HostChecker extends Thread {
     protected String checkerKey;
     protected boolean reportOnFail = true;
     protected PropertyReader prop;
-    private final Logger LOGGER = Logger.getLogger(getClass().getName());
+    protected final Logger LOGGER = Logger.getLogger(getClass().getName());
 
     public HostChecker(String host) {
         this.host = host;

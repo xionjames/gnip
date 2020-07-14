@@ -32,8 +32,13 @@ public class TcpHostChecker extends HostChecker {
         // check every port
         for (String port : ports) {
             this.url = formatUrl(this.getHost(), port);
+
+            LOGGER.fine(String.format("Thread %d: checking url: %s", this.getId(), this.url));
+
             HttpResponse result = HttpUtil.isReachable(this.url, requestTimeout);
             
+            LOGGER.finer(String.format("Thread %d: checking result: %s", this.getId(), result == null ? null : result.toString()));
+
             this.setCheckResult(result == null ? null : result.toString());
 
             if (result != null) {

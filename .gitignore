@@ -5,5 +5,4 @@
 java-app/target/
 
 # log files
-
-java-app/logs/
+*.log
